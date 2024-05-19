@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+  <% if (user) { %>
+    <p>Welcome, <%= user.username %>!</p>
+    <form action="/submit-number" method="POST">
+      <label for="numbers">Select 6 numbers:</label><br>
+      <input type="number" name="numbers" min="1" max="45" required>
+      <input type="number" name="numbers" min="1" max="45" required>
+      <input type="number" name="numbers" min="1" max="45" required>
+      <input type="number" name="numbers" min="1" max="45" required>
+      <input type="number" name="numbers" min="1" max="45" required>
+      <input type="number" name="numbers" min="1" max="45" required>
+      <button type="submit">Submit</button>
+    </form>
+    <a href="/logout">Logout</a>
+  <% } else { %>
+    <p>Please <a href="/login">log in</a> to submit your numbers.</p>
+  <% } %>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!-- lottolist.ejs -->
+<!doctype html>
+<html lang="ko">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css">
+    <title>C4EI LOTTO LIST [<%=SoonBun%>]</title>
+  </head>
+  <body style="font-size: 12px;color:#444444">
+  
+  <div class="content" style="padding-top: 10px;color:#444444;">
+    <div class="container">
+      <h2 class="mb-5" style="color:#444444;">C4EI LOTTO LIST [<%=SoonBun%>]</h2>
+      <div class="table-responsive" style="border:0px;">
+        <% if (result2!='nodata') { %>
+        <table class="table table-striped custom-table">
+          <% for(j=0;j<result2.length;j++)
+            {  %>
+          <tr 
+          <% if (result2[j].idx== SoonBun){ %> style="background-color:red" <% } %> 
+          <% if (result2[j].idx== SoonBun-1){ %> style="background-color:#c9c89e;" <% } %> 
+          <% if (result2[j].idx== SoonBun-2){ %> style="background-color:#afa2f5;" <% } %> 
+          <% if (result2[j].idx== SoonBun-3){ %> style="background-color:#e77041;" <% } %> 
+          <% if (result2[j].idx== SoonBun-4){ %> style="background-color:#3fbb4f;" <% } %> 
+          <% if (result2[j].idx== SoonBun-5){ %> style="background-color:#6f6fff;color:white; @important" <% } %> 
+          >
+            <td style="height: 20px;margin: 1px;padding: 2px;width:50px;">
+<% if (result2[j].idx== SoonBun){ %> ① <% } %> 
+<% if (result2[j].idx== SoonBun-1){ %> ② <% } %> 
+<% if (result2[j].idx== SoonBun-2){ %> ③ <% } %> 
+<% if (result2[j].idx== SoonBun-3){ %> ④ <% } %> 
+<% if (result2[j].idx== SoonBun-4){ %> ⑤ <% } %> 
+<% if (result2[j].idx== SoonBun-5){ %> ⑥ <% } %> 
+              <a href="javascript:jsfn_golotSB('<%=result2[j].idx%>','<%=result2[j].yyyymmdd%>');" style="color: black;"><%=result2[j].idx%>회</a></td>
+            <td style="height: 20px;margin: 1px;padding: 2px;width:50px;"><%=result2[j].yyyymmdd%></td>
+            <td style="height: 20px;margin: 1px;padding: 2px;width:50px;"><%=result2[j].num1%>(<%=result4[result2[j].num1-1].NC%>/<%=result4[result2[j].num1-1].PC%>%)</td>
+            <td style="height: 20px;margin: 1px;padding: 2px;width:50px;"><%=result2[j].num2%>(<%=result4[result2[j].num2-1].NC%>/<%=result4[result2[j].num2-1].PC%>%)</td>
+            <td style="height: 20px;margin: 1px;padding: 2px;width:50px;"><%=result2[j].num3%>(<%=result4[result2[j].num3-1].NC%>/<%=result4[result2[j].num3-1].PC%>%)</td>
+            <td style="height: 20px;margin: 1px;padding: 2px;width:50px;"><%=result2[j].num4%>(<%=result4[result2[j].num4-1].NC%>/<%=result4[result2[j].num4-1].PC%>%)</td>
+            <td style="height: 20px;margin: 1px;padding: 2px;width:50px;"><%=result2[j].num5%>(<%=result4[result2[j].num5-1].NC%>/<%=result4[result2[j].num5-1].PC%>%)</td>
+            <td style="height: 20px;margin: 1px;padding: 2px;width:50px;"><%=result2[j].num6%>(<%=result4[result2[j].num6-1].NC%>/<%=result4[result2[j].num6-1].PC%>%)</td>
+
+          </tr>
+          <% } %>
+        </table>
+        <% } %>
+        <script>
+          function jsfn_golotlist(){
+            let maf       = document.getElementById("mainfrom");
+            let start_dt  = document.getElementById("txt_start_dt").value;
+            let end_dt    = document.getElementById("txt_end_dt").value;
+            // let SoonBun   = document.getElementById("txt_SoonBun").value;
+            if(start_dt==""||start_dt.length!=8){
+              alert("start_dt fill first");
+              return;
+            }
+            if(end_dt==""||end_dt.length!=8){
+              alert("end_dt fill first");
+              return;
+            }
+            maf.action="/lottolist"
+            maf.submit();
+          }
+          function jsfn_golotSB(sunb,_start_dt){
+            let maf       = document.getElementById("mainfrom");
+            document.getElementById("txt_start_dt").value = _start_dt;
+            let start_dt  = document.getElementById("txt_start_dt").value;
+            let end_dt    = document.getElementById("txt_end_dt").value;
+            document.getElementById("txt_SoonBun").value = sunb;
+            if(start_dt==""||start_dt.length!=8){
+              alert("start_dt fill first");
+              return;
+            }
+            if(end_dt==""||end_dt.length!=8){
+              alert("end_dt fill first");
+              return;
+            }
+            maf.action="/lottolist"
+            maf.submit();
+          }
+
+        </script>
+        <form id="mainfrom" name="mainfrom" method="post">
+          <div style="color:#444444;"> 
+            시작일 <input type="text" name="txt_start_dt" id="txt_start_dt" maxlength="8" style="width:80px;color:black;" value="<%=start_dt%>">
+            ~ 종료일 <input type="text" name="txt_end_dt" id="txt_end_dt" maxlength="8" style="width:80px;color:black;" value="<%=end_dt%>">
+            <a href="javascript:jsfn_golotlist();"  style="color:#444444;"><b>검색</b></a>
+            <% if (result5!='nodata'){%>
+              최근 <%=lastFweek%>주 분석
+              <% 
+              if (result5!='nodata')
+              { 
+                for(i=0;i<result5.length;i++)
+                { 
+                  if (i==0){ %><font color="red"><%=result5[i].NUMP%><% }
+                  if (i==6){ %></font><font color="green"><%=result5[i].NUMP%><% }
+                  if (i==12){ %></font><font color="blue"><%=result5[i].NUMP%><% } %>
+                  <%=result5[i].NUMB%>(<%=result5[i].NC%>)<%
+                }
+                %></font><%
+              }
+            } %>
+            <select id="lastFweek" name="lastFweek">
+              <option value="3" <%if(lastFweek=="3"){%> selected <%}%> >3</option>
+              <option value="5" <%if(lastFweek=="5"){%> selected <%}%> >5</option>
+              <option value="7" <%if(lastFweek=="7"){%> selected <%}%> >7</option>
+              <option value="8" <%if(lastFweek=="8"){%> selected <%}%> >8</option>
+              <option value="10" <%if(lastFweek=="10"){%> selected <%}%> >10</option>
+              <option value="14" <%if(lastFweek=="14"){%> selected <%}%> >14</option>
+              <option value="21" <%if(lastFweek=="21"){%> selected <%}%> >21</option>
+              <option value="50" <%if(lastFweek=="50"){%> selected <%}%> >50</option>
+              <option value="80" <%if(lastFweek=="80"){%> selected <%}%> >80</option>
+              <option value="100" <%if(lastFweek=="100"){%> selected <%}%> >100</option>
+              <option value="160" <%if(lastFweek=="160"){%> selected <%}%> >160</option>
+              <option value="200" <%if(lastFweek=="200"){%> selected <%}%> >200</option>
+              <option value="300" <%if(lastFweek=="300"){%> selected <%}%> >300</option>
+              <option value="400" <%if(lastFweek=="400"){%> selected <%}%> >400</option>
+              <option value="500" <%if(lastFweek=="500"){%> selected <%}%> >500</option>
+              <option value="800" <%if(lastFweek=="800"){%> selected <%}%> >800</option>
+              <option value="1101" <%if(lastFweek=="1101"){%> selected <%}%> >1101</option>
+            </select>
+             <!-- 7,13,14,18,38,44 -->
+            <input type="hidden" name="txt_SoonBun" id="txt_SoonBun"  value="<%=SoonBun%>">
+        </div>
+        </form>
+        <h3>번호 순(전체기간)[선택기간] <!-- 아래와 동일 -->(번호순)</h3> 
+        <table class="table table-striped custom-table">
+          <tbody>
+<% 
+  if (result!='nodata')
+  { 
+
+    let _startNo = 0;
+    for(i=0;i<45;i++){ try { if (result2[i].idx== SoonBun){  _startNo = i; } }catch(e){ continue; } }
+    for(i=0;i<45;i++)
+    {
+      try
+      {
+        if (i%7 == 0 || i==0) { %> <tr scope="row" style="height: 20px;margin: 1px;padding: 2px;"> <%  } %>
+            <td style="height: 20px;margin: 1px;padding: 2px;width:50px;">
+              <%
+              if (
+                result2[_startNo].num1==result[i].num || result2[_startNo].num2==result[i].num ||
+                result2[_startNo].num3==result[i].num || result2[_startNo].num4==result[i].num ||
+                result2[_startNo].num5==result[i].num || result2[_startNo].num6==result[i].num)   
+                { %> <font color="red">①<% } 
+              else if (
+                result2[_startNo+1].num1==result[i].num || result2[_startNo+1].num2==result[i].num ||
+                result2[_startNo+1].num3==result[i].num || result2[_startNo+1].num4==result[i].num ||
+                result2[_startNo+1].num5==result[i].num || result2[_startNo+1].num6==result[i].num) 
+              { %> <font color="#c9c89e">②<% }  
+              else if (
+                result2[_startNo+2].num1==result[i].num || result2[_startNo+2].num2==result[i].num ||
+                result2[_startNo+2].num3==result[i].num || result2[_startNo+2].num4==result[i].num ||
+                result2[_startNo+2].num5==result[i].num || result2[_startNo+2].num6==result[i].num) 
+              { %> <font color="#afa2f5">③<% }  
+              else if (
+                  result2[_startNo+3].num1==result[i].num || result2[_startNo+3].num2==result[i].num ||
+                  result2[_startNo+3].num3==result[i].num || result2[_startNo+3].num4==result[i].num ||
+                  result2[_startNo+3].num5==result[i].num || result2[_startNo+3].num6==result[i].num) 
+              { %> <font color="#e77041">④<% } 
+              else if (
+                  result2[_startNo+4].num1==result[i].num || result2[_startNo+4].num2==result[i].num ||
+                  result2[_startNo+4].num3==result[i].num || result2[_startNo+4].num4==result[i].num ||
+                  result2[_startNo+4].num5==result[i].num || result2[_startNo+4].num6==result[i].num) 
+              { %> <font color="#3fbb4f">⑤<% }
+              else if (
+                result2[_startNo+5].num1==result[i].num || result2[_startNo+5].num2==result[i].num ||
+                result2[_startNo+5].num3==result[i].num || result2[_startNo+5].num4==result[i].num ||
+                result2[_startNo+5].num5==result[i].num || result2[_startNo+5].num6==result[i].num) 
+              { %> <font color="#6f6fff">⑥<%  } 
+              else { %> <font color="#444444"> <% 
+              } %>
+              <b><%=result[i].num%></b></font>
+              <%
+              if (_startNo>0){
+                if (result2[_startNo-1].num1==result[i].num || result2[_startNo-1].num2==result[i].num ||
+                result2[_startNo-1].num3==result[i].num || result2[_startNo-1].num4==result[i].num ||
+                result2[_startNo-1].num5==result[i].num || result2[_startNo-1].num6==result[i].num)
+                { %> <font style="text-decoration-line: line-through;"> <% } 
+              }%>
+                (<%=result4[result[i].num-1].NC%>)
+              </font>
+              <% if (result[i].Cnt!=0){ %>
+                [<%=result[i].Cnt%>]
+                <!-- [<%=Math.round(result[i].Cnt/result3[0].week_cnt*6 * 100)  / 100 %>%] -->
+              <% } %>
+            </td>
+    <% 
+      } catch(e) {
+    %><td><%=i%></td><% 
+        continue;
+      }
+
+    }
+  }
+  else
+  { %>
+<tr scope="row">
+  <td colspan="9"> no data </td>
+</tr>
+<%} %>
+          </tbody>
+        </table>
+        <hr/>
+
+        <h3>당첨 순(전체기간)[선택기간] <!-- 위와 동일 -->(당첨순)</h3>
+        <table class="table table-striped custom-table">
+          <tbody>
+        <% 
+        if (result6!='nodata')
+        { 
+
+        let _startNo = 0;
+        for(i=0;i<45;i++){ try { if (result2[i].idx== SoonBun){  _startNo = i; } }catch(e){ continue; } }
+        for(i=0;i<45;i++)
+        {
+        try
+        {
+        if (i%7 == 0 || i==0) { %> <tr scope="row" style="height: 20px;margin: 1px;padding: 2px;"> <%  } %>
+            <td style="height: 20px;margin: 1px;padding: 2px;width:50px;">
+              <%
+              if (
+                result2[_startNo].num1==result6[i].num || result2[_startNo].num2==result6[i].num ||
+                result2[_startNo].num3==result6[i].num || result2[_startNo].num4==result6[i].num ||
+                result2[_startNo].num5==result6[i].num || result2[_startNo].num6==result6[i].num)   
+                { %> <font color="red">①<% } 
+              else if (
+                result2[_startNo+1].num1==result6[i].num || result2[_startNo+1].num2==result6[i].num ||
+                result2[_startNo+1].num3==result6[i].num || result2[_startNo+1].num4==result6[i].num ||
+                result2[_startNo+1].num5==result6[i].num || result2[_startNo+1].num6==result6[i].num) 
+              { %> <font color="#c9c89e">②<% }  
+              else if (
+                result2[_startNo+2].num1==result6[i].num || result2[_startNo+2].num2==result6[i].num ||
+                result2[_startNo+2].num3==result6[i].num || result2[_startNo+2].num4==result6[i].num ||
+                result2[_startNo+2].num5==result6[i].num || result2[_startNo+2].num6==result6[i].num) 
+              { %> <font color="#afa2f5">③<% }  
+              else if (
+                  result2[_startNo+3].num1==result6[i].num || result2[_startNo+3].num2==result6[i].num ||
+                  result2[_startNo+3].num3==result6[i].num || result2[_startNo+3].num4==result6[i].num ||
+                  result2[_startNo+3].num5==result6[i].num || result2[_startNo+3].num6==result6[i].num) 
+              { %> <font color="#e77041">④<% } 
+              else if (
+                  result2[_startNo+4].num1==result6[i].num || result2[_startNo+4].num2==result6[i].num ||
+                  result2[_startNo+4].num3==result6[i].num || result2[_startNo+4].num4==result6[i].num ||
+                  result2[_startNo+4].num5==result6[i].num || result2[_startNo+4].num6==result6[i].num) 
+              { %> <font color="#3fbb4f">⑤<% }
+              else if (
+                result2[_startNo+5].num1==result6[i].num || result2[_startNo+5].num2==result6[i].num ||
+                result2[_startNo+5].num3==result6[i].num || result2[_startNo+5].num4==result6[i].num ||
+                result2[_startNo+5].num5==result6[i].num || result2[_startNo+5].num6==result6[i].num) 
+              { %> <font color="#6f6fff">⑥<%  } 
+              else { %> <font color="#444444"> <% 
+              } %>
+              <b><%=result6[i].num%></b></font>
+              <%
+              if (_startNo>0){
+                if (result2[_startNo-1].num1==result6[i].num || result2[_startNo-1].num2==result6[i].num ||
+                result2[_startNo-1].num3==result6[i].num || result2[_startNo-1].num4==result6[i].num ||
+                result2[_startNo-1].num5==result6[i].num || result2[_startNo-1].num6==result6[i].num)
+                { %> <font style="text-decoration-line: line-through;"> <% } 
+              }%>
+                (<%=result4[result6[i].num-1].NC%>)
+              </font>
+              <% if (result6[i].Cnt!=0){ %>
+                [<%=result6[i].Cnt%>]
+                <!-- [<%=Math.round(result6[i].Cnt/result3[0].week_cnt*6 * 100)  / 100 %>%] -->
+              <% } %>
+            </td>
+        <% 
+        } catch(e) {
+        %><td><%=i%></td><% 
+        continue;
+        }
+
+        }
+        }
+        else
+        { %>
+        <tr scope="row">
+        <td colspan="10"> no data </td>
+        </tr>
+        <%} %>
+          </tbody>
+        </table>
+        <hr/>
+
+
+        <h3><%=start_dt%>~<%=end_dt%>기간 순(전체기간)[선택기간]</h3>
+        <table class="table table-striped custom-table">
+          <tbody>
+        <% 
+        if (result7!='nodata')
+        { 
+          let _startNo = 0;
+          for(i=0;i<45;i++){ try { if (result2[i].idx== SoonBun){  _startNo = i; } }catch(e){ continue; } }
+          for(i=0;i<45;i++)
+          {
+            try
+            {
+              if (i%10 == 0 || i==0) { %> <tr scope="row" style="height: 20px;margin: 1px;padding: 2px;"> <%  } %>
+              <td style="height: 20px;margin: 0;padding: 0;width:50px;">
+                <%
+                if (
+                  result2[_startNo].num1==result7[i].num || result2[_startNo].num2==result7[i].num ||
+                  result2[_startNo].num3==result7[i].num || result2[_startNo].num4==result7[i].num ||
+                  result2[_startNo].num5==result7[i].num || result2[_startNo].num6==result7[i].num)   
+                  { %> <font color="red">①<% } 
+                else if (
+                  result2[_startNo+1].num1==result7[i].num || result2[_startNo+1].num2==result7[i].num ||
+                  result2[_startNo+1].num3==result7[i].num || result2[_startNo+1].num4==result7[i].num ||
+                  result2[_startNo+1].num5==result7[i].num || result2[_startNo+1].num6==result7[i].num) 
+                { %> <font color="#c9c89e">②<% }  
+                else if (
+                  result2[_startNo+2].num1==result7[i].num || result2[_startNo+2].num2==result7[i].num ||
+                  result2[_startNo+2].num3==result7[i].num || result2[_startNo+2].num4==result7[i].num ||
+                  result2[_startNo+2].num5==result7[i].num || result2[_startNo+2].num6==result7[i].num) 
+                { %> <font color="#afa2f5">③<% }  
+                else if (
+                    result2[_startNo+3].num1==result7[i].num || result2[_startNo+3].num2==result7[i].num ||
+                    result2[_startNo+3].num3==result7[i].num || result2[_startNo+3].num4==result7[i].num ||
+                    result2[_startNo+3].num5==result7[i].num || result2[_startNo+3].num6==result7[i].num) 
+                { %> <font color="#e77041">④<% } 
+                else if (
+                    result2[_startNo+4].num1==result7[i].num || result2[_startNo+4].num2==result7[i].num ||
+                    result2[_startNo+4].num3==result7[i].num || result2[_startNo+4].num4==result7[i].num ||
+                    result2[_startNo+4].num5==result7[i].num || result2[_startNo+4].num6==result7[i].num) 
+                { %> <font color="#3fbb4f">⑤<% }
+                else if (
+                  result2[_startNo+5].num1==result7[i].num || result2[_startNo+5].num2==result7[i].num ||
+                  result2[_startNo+5].num3==result7[i].num || result2[_startNo+5].num4==result7[i].num ||
+                  result2[_startNo+5].num5==result7[i].num || result2[_startNo+5].num6==result7[i].num) 
+                { %> <font color="#6f6fff">⑥<%  } 
+                else { %> <font color="#444444"> <% 
+                } %>
+                <b><%=result7[i].num%></b></font>
+                <%
+                if (_startNo>0){
+                  if (result2[_startNo-1].num1==result7[i].num || result2[_startNo-1].num2==result7[i].num ||
+                  result2[_startNo-1].num3==result7[i].num || result2[_startNo-1].num4==result7[i].num ||
+                  result2[_startNo-1].num5==result7[i].num || result2[_startNo-1].num6==result7[i].num)
+                  { %> <font style="text-decoration-line: line-through;"> <% } 
+                }%>
+                  (<%=result4[result7[i].num-1].NC%>)
+                </font>
+                <% if (result7[i].Cnt!=0){ %>
+                  [<%=result7[i].Cnt%>]
+                  <!-- <%=Math.round(result7[i].Cnt/result3[0].week_cnt*6 * 100)  / 100 %>% -->
+                <% } %>
+              </td>
+          <%
+            } catch(e) {
+              break;
+            }
+          }
+        }
+        else
+        { %>
+          <tr scope="row">
+            <td colspan="10"> no data </td>
+          </tr>
+        <%} %>
+          </tbody>
+        </table>
+
+        <br/>
+        <a href="/">gplay</a> / <a href="/lottolist">lottolist</a> / <a href="https://c4ei.net">c4ei.net</a>
+        / <a href="/getlotto">로또번호갱신</a>
+      </div>
+    </div>
+  </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
